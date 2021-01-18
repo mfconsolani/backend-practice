@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FC - Mauro Consolani</title>
+    <link rel="icon" type="image/png" href="https://m.yelp.nl/favicon.ico" />
+  </head>
+  <body>
+    <h1>Función Constructora</h1>
+    <h3>Mauro Consolani</h3>
+    <script>
+      function Usuario(nombre, apellido, libros = [], mascotas = []) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.libros = libros;
+        this.mascotas = mascotas;
+      }
+
+      Usuario.prototype.getFullName = function () {
+        return `${this.nombre} ${this.apellido}`;
+      };
+
+      Usuario.prototype.addMascota = function (mascota) {
+        this.mascotas = [...this.mascotas, mascota];
+      };
+
+      Usuario.prototype.getMascotas = function () {
+        return this.mascotas.length
+      };
+
+      Usuario.prototype.addBook = function (book, autor) {
+        this.libros = [...this.libros, { nombre: book, autor: autor }];
+      };
+
+      Usuario.prototype.getBooks = function () {
+        const actualBooks = this.libros.map((libro) => libro.nombre);
+        return actualBooks;
+      };
+
+      // Usuario de prueba
+      const usuario = new Usuario(
+        "Pedro",
+        "Picatecla",
+        [{ nombre: "JavaScript para principiantes", autor: "Anónimo" }],
+        ["Deno"]
+      );
+
+      // Test
+      console.log("Nombre y apellido del usuario:", usuario.getFullName());
+      console.log("Mascotas al momento de la instanciación:", usuario.mascotas);
+      console.log("Agregando nueva mascota...");
+      usuario.addMascota("Alf");
+      console.log("Mascota agregada:", usuario.mascotas);
+      console.log('Cantidad de mascotas:', usuario.getMascotas());
+      console.log(
+        "Array con los libros del usuario actualmente",
+        usuario.getBooks()
+      );
+      console.log("Agregando nuevo libro...");
+      usuario.addBook(
+        "El programador contra la frustración: volumen N° 9000",
+        "Pedro Picatecla"
+      );
+      console.log(
+        "Libro agregado. Array actual de libros:",
+        usuario.getBooks()
+      );
+
+
+    </script>
+  </body>
+</html>
