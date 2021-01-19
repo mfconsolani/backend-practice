@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js"></script>
+    <title>O1ConsolaniMauro</title>
+  </head>
+  <body>
+
+      <input type="text" id="input"/>
+      <span id="espejo"></span>
+    
+    <script>
+
+      const { Observable, fromEvent } = rxjs;
+
+      const input = document.getElementById("input");
+      const espejo = document.getElementById("espejo");
+
+      const bloquearObservable = (observable, entrada, salida) => {
+        observable.unsubscribe();
+        entrada.value = '';
+        entrada.disabled = true;
+        salida.textContent = '';
+        return 
+      }
+
+      const observer = {
+        next: e => {
+          espejo.textContent = e.target.value.split('').reverse().join('');
+          switch (input.value) {
+            case "error":
+              subsCambioInput.error();
+            case "complete":
+              subsCambioInput.complete();
+          }
+        },
+        error: () => {
+          console.error("El observador detectó un error y se desuscribió");
+          bloquearObservable(subsCambioInput, input, espejo);
+        },
+        complete: () => {
+          console.log('El observable se ha completado con normalidad - Desuscripción exitosa');
+          bloquearObservable(subsCambioInput, input, espejo);
+        },
+      };
+
+      const cambioInput = fromEvent(input, 'input');
+
+      const subsCambioInput = cambioInput.subscribe(observer);
+    
+      setTimeout(() => {
+          bloquearObservable(subsCambioInput, input, espejo);
+          console.log("Han pasado 30 segundos - Desuscripción automática")
+        }, 30000);
+
+    </script>
+  </body>
+</html>
