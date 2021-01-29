@@ -1,23 +1,24 @@
 const fs = require('fs');
 
 class Archivo{
+
     constructor(archivo){
         this.archivo = archivo;
     }
 
+
     async readFile(){
-        let contentToRead = ''
+        let contentToRead
         try {
-            contentToRead = await JSON.parse(await fs.promises.readFile(this.archivo, 'utf-8'))
-        } catch {
-            contentToRead = []
+            contentToRead = await fs.promises.readFile(this.archivo, 'utf-8')
+        } catch (e) {
+            contentToRead = "[]"
         }
         console.log(contentToRead);
     }
 
+
     async saveFile(title, price, thumbnail){
-        
-        let evaluaArchivo = ''
         
         const contentToAdd = {
             "title": title,
@@ -25,25 +26,32 @@ class Archivo{
             "thumbnail": thumbnail
         }
         
+        let evaluaArchivo
+        
         try {
-            evaluaArchivo = await JSON.parse(await fs.promises.readFile(this.archivo, 'utf-8'))
-        } catch {
-            evaluaArchivo = []
+            evaluaArchivo = await fs.promises.readFile(this.archivo, 'utf-8')
+        } catch (e) {
+            evaluaArchivo = "[]"
         }
+        
+        evaluaArchivo = JSON.parse(evaluaArchivo)
+
+        contentToAdd.id = evaluaArchivo.length + 1
+
+        evaluaArchivo.push(contentToAdd)            
 
         try {
-            contentToAdd.id = evaluaArchivo.length
-            evaluaArchivo.push(contentToAdd)            
             const fileToSave = await fs.promises.writeFile(
                 this.archivo,
-                JSON.stringify(evaluaArchivo, null, '\t')
-            )
-        } catch {
+                JSON.stringify(evaluaArchivo, null, '\t'))
+        } catch (e) {
             console.log(`Error guardando el archivo: ${e}`)
         }
     }
 
+
     async deleteFile(){
+
         try {
             console.log(`Borrado del archivo ${this.archivo} en curso...`);
             const fileToDelete = await fs.promises.unlink(this.archivo);
@@ -55,4 +63,4 @@ class Archivo{
 
 }
 
-module.exports = {Archivo};
+module.exports = { Archivo };

@@ -1,6 +1,6 @@
 const { Archivo } = require('./handlerClassIO');
 
-const testOne = new Archivo('./archivodeprueba.txt')
+const testOne = new Archivo('./productos.txt')
 
 // Leyendo archivo inexistente
 setTimeout(() => {
