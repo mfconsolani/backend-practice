@@ -26,19 +26,19 @@
     {
         "title": "Iphone 1",
         "price": 150.70,
-        "thumbnail": "https://lenovo.at/Iphone-Model-1",
+        "thumbnail": "https://apple.us/Iphone-Model-1",
         "id": 5
     },
     {
         "title": "Iphone 2",
         "price": 250.70,
-        "thumbnail": "https://lenovo.at/Iphone-Model-2",
+        "thumbnail": "https://apple.us/Iphone-Model-2",
         "id": 6
     },
     {
         "title": "Iphone 3",
         "price": 350.70,
-        "thumbnail": "https://lenovo.at/Iphone-Model-3",
+        "thumbnail": "https://apple.us/Iphone-Model-3",
         "id": 7
     }
 ]
